@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "prestart": "npm run build",
+    "prestart": "yarn build",
     "start": "func start",
     "test": "echo \"No tests yet...\""
   },
