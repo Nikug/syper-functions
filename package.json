@@ -13,7 +13,12 @@
   "devDependencies": {
     "@azure/functions": "^3.0.0",
     "@types/node": "18.x",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
+    "@typescript-eslint/parser": "^5.54.1",
     "azure-functions-core-tools": "^4.x",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.7.0",
+    "prettier": "^2.8.4",
     "typescript": "^4.9.5"
   }
 }
