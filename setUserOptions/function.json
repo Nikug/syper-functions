@@ -1,0 +1,27 @@
+{
+  "bindings": [
+    {
+      "authLevel": "function",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "request",
+      "methods": ["post"],
+      "route": "userOptions/{userId}"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "httpResponse"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "out",
+      "name": "outputDocument",
+      "databaseName": "%CosmosDbName%",
+      "containerName": "UserOptions",
+      "id": "{userId}",
+      "connection": "cosmosDb"
+    }
+  ],
+  "scriptFile": "../dist/setUserOptions/index.js"
+}

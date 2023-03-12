@@ -7,7 +7,7 @@
     "build": "tsc",
     "watch": "tsc -w",
     "prestart": "yarn build",
-    "start": "func start",
+    "start": "yarn prestart && func start",
     "test": "echo \"No tests yet...\""
   },
   "devDependencies": {
