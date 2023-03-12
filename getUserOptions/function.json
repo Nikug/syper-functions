@@ -1,0 +1,33 @@
+{
+  "bindings": [
+    {
+      "authLevel": "function",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "request",
+      "methods": ["get"],
+      "route": "userOptions/{userId}"
+    },
+    {
+      "type": "cosmosDB",
+      "name": "inputDocument",
+      "databaseName": "%CosmosDbName%",
+      "containerName": "UserOptions",
+      "id": "{userId}",
+      "partitionKey": "{userId}",
+      "direction": "in",
+      "connection": "cosmosDb"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "httpResponse"
+    }
+  ],
+  "retry": {
+    "strategy": "fixedDelay",
+    "maxRetryCount": 0,
+    "delayInterval": "00:00:10"
+  },
+  "scriptFile": "../dist/getUserOptions/index.js"
+}

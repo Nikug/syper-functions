@@ -19,7 +19,7 @@
       "name": "outputDocument",
       "databaseName": "%CosmosDbName%",
       "containerName": "UserOptions",
-      "id": "{userId}",
+      "createIfNotExists": false,
       "connection": "cosmosDb"
     }
   ],

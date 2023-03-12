@@ -4,7 +4,7 @@ const httpTrigger: AzureFunction = async function (
   context: Context,
   request: HttpRequest
 ): Promise<object> {
-  context.log('HTTP trigger function processed a request.', request.body, request.params.userId)
+  context.log('Set user options for:', request.params.userId)
 
   const options = request.body
   const userId = request.params.userId
@@ -20,8 +20,7 @@ const httpTrigger: AzureFunction = async function (
   }
 
   options.userId = userId
-
-  context.log('returning ok, outputdocument:', options)
+  options.id = userId
 
   return {
     httpResponse: {
