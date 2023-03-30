@@ -1,0 +1,27 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "request",
+      "methods": ["post"],
+      "route": "userTestResults/{userId}"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "httpResponse"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "out",
+      "name": "outputDocument",
+      "databaseName": "%CosmosDbName%",
+      "containerName": "UserTestResults",
+      "createIfNotExists": false,
+      "connection": "cosmosDb"
+    }
+  ],
+  "scriptFile": "../dist/setUserTestResults/index.js"
+}
