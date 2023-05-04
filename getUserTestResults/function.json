@@ -1,0 +1,18 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "request",
+      "methods": ["get"],
+      "route": "userTestResults/{userId}"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "httpResponse"
+    }
+  ],
+  "scriptFile": "../dist/getUserTestResults/index.js"
+}
