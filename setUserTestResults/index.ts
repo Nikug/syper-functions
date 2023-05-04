@@ -1,5 +1,6 @@
 import { AzureFunction, Context, HttpRequest } from '@azure/functions'
 import { v1 } from 'uuid'
+import jwtDecode from 'jwt-decode'
 
 const httpTrigger: AzureFunction = async function (
   context: Context,
@@ -8,9 +9,9 @@ const httpTrigger: AzureFunction = async function (
   context.log('Set user test results for:', request.params.userId)
 
   const results = request.body
-  const userId = request.params.userId
+  const token = jwtDecode<{ sub: string }>(request.headers['authorization'])
 
-  if (!results || !userId) {
+  if (!results || !token.sub) {
     return {
       httpResponse: {
         status: 400, // Bad request
@@ -20,7 +21,7 @@ const httpTrigger: AzureFunction = async function (
   }
 
   results.id = v1()
-  results.userId = userId
+  results.userId = token.sub
   results.date = new Date().toISOString()
 
   return {

@@ -6,7 +6,7 @@
       "direction": "in",
       "name": "request",
       "methods": ["post"],
-      "route": "userOptions/{userId}"
+      "route": "userOptions"
     },
     {
       "type": "http",

@@ -1,15 +1,14 @@
 import { AzureFunction, Context, HttpRequest } from '@azure/functions'
+import jwtDecode from 'jwt-decode'
 
 const httpTrigger: AzureFunction = async function (
   context: Context,
   request: HttpRequest
 ): Promise<object> {
-  context.log('Set user options for:', request.params.userId)
-
   const options = request.body
-  const userId = request.params.userId
+  const token = jwtDecode<{ sub: string }>(request.headers['authorization'])
 
-  if (!options || !userId) {
+  if (!options || !token.sub) {
     return {
       httpResponse: {
         status: 400, // Bad request
@@ -18,8 +17,8 @@ const httpTrigger: AzureFunction = async function (
     }
   }
 
-  options.userId = userId
-  options.id = userId
+  options.userId = token.sub
+  options.id = token.sub
 
   return {
     httpResponse: {

@@ -1015,6 +1015,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jwt-decode@npm:^3.1.2":
+  version: 3.1.2
+  resolution: "jwt-decode@npm:3.1.2"
+  checksum: 20a4b072d44ce3479f42d0d2c8d3dabeb353081ba4982e40b83a779f2459a70be26441be6c160bfc8c3c6eadf9f6380a036fbb06ac5406b5674e35d8c4205eeb
+  languageName: node
+  linkType: hard
+
 "levn@npm:^0.4.1":
   version: 0.4.1
   resolution: "levn@npm:0.4.1"
@@ -1426,6 +1433,7 @@ __metadata:
     azure-functions-core-tools: ^4.x
     eslint: ^8.36.0
     eslint-config-prettier: ^8.7.0
+    jwt-decode: ^3.1.2
     prettier: ^2.8.4
     typescript: ^4.9.5
     uuid: ^9.0.0
