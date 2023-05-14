@@ -1,6 +1,24 @@
 import { AzureFunction, Context, HttpRequest } from '@azure/functions'
 import { getContainer } from '../cosmos'
-import { startOfDay, subDays } from 'date-fns'
+import { endOfDay, startOfDay, subDays } from 'date-fns'
+
+const defaultDays = 10
+const getDefaultStartDate = () => startOfDay(Date.now())
+const getDefaultEndDate = (startDate: Date) => endOfDay(subDays(startDate, defaultDays))
+
+const getStartDate = (value: string | undefined) => {
+  if (!value) return getDefaultStartDate()
+
+  const date = new Date(value)
+  return startOfDay(date)
+}
+
+const getEndDate = (value: string | undefined, startDate: Date) => {
+  if (!value) return getDefaultEndDate(startDate)
+
+  const date = new Date(value)
+  return endOfDay(date)
+}
 
 const httpTrigger: AzureFunction = async function (
   context: Context,
@@ -14,20 +32,26 @@ const httpTrigger: AzureFunction = async function (
       },
     }
 
-  const startDate = subDays(startOfDay(new Date()), 30).toISOString()
+  const startDate = getStartDate(request.query.startDate)
+  const endDate = getEndDate(request.query.endDate, startDate)
 
   const container = await getContainer('UserTestResults')
   const { resources } = await container.items
     .query({
-      query: 'select * from c where c.userId = @userId and c.date >= @date',
+      query:
+        'select * from c where c.userId = @userId and c.date >= @endDate and c.date < @startDate',
       parameters: [
         {
           name: '@userId',
           value: userId,
         },
         {
-          name: '@date',
-          value: startDate,
+          name: '@startDate',
+          value: startDate.toISOString(),
+        },
+        {
+          name: '@endDate',
+          value: endDate.toISOString(),
         },
       ],
     })
