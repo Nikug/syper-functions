@@ -37,33 +37,43 @@ const httpTrigger: AzureFunction = async function (
 
   context.log('Getting test results for', userId, 'between dates', startDate, '-', endDate)
 
-  const container = await getContainer('UserTestResults')
-  const { resources } = await container.items
-    .query({
-      query:
-        'select * from c where c.userId = @userId and c.date < @endDate and c.date >= @startDate order by c.date asc',
-      parameters: [
-        {
-          name: '@userId',
-          value: userId,
-        },
-        {
-          name: '@startDate',
-          value: startDate.toISOString(),
-        },
-        {
-          name: '@endDate',
-          value: endDate.toISOString(),
-        },
-      ],
-    })
-    .fetchAll()
+  try {
+    const container = await getContainer('UserTestResults')
+    const { resources } = await container.items
+      .query({
+        query:
+          'select * from c where c.userId = @userId and c.date < @endDate and c.date >= @startDate order by c.date asc',
+        parameters: [
+          {
+            name: '@userId',
+            value: userId,
+          },
+          {
+            name: '@startDate',
+            value: startDate.toISOString(),
+          },
+          {
+            name: '@endDate',
+            value: endDate.toISOString(),
+          },
+        ],
+      })
+      .fetchAll()
 
-  context.log('Found', resources.length, 'results')
+    context.log('Found', resources.length, 'results')
+
+    return {
+      httpResponse: {
+        body: resources,
+      },
+    }
+  } catch (e) {
+    context.log(e)
+  }
 
   return {
     httpResponse: {
-      body: resources,
+      status: 500,
     },
   }
 }
