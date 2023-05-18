@@ -24,10 +24,5 @@
       "name": "httpResponse"
     }
   ],
-  "retry": {
-    "strategy": "fixedDelay",
-    "maxRetryCount": 0,
-    "delayInterval": "00:00:10"
-  },
   "scriptFile": "../dist/getUserOptions/index.js"
 }

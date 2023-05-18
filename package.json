@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@azure/cosmos": "^3.17.3",
+    "@azure/identity": "^3.2.2",
     "@azure/logger": "^1.0.4",
     "@types/uuid": "^9.0.1",
     "date-fns": "^2.30.0",
