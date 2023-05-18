@@ -35,6 +35,8 @@ const httpTrigger: AzureFunction = async function (
   const startDate = getStartDate(request.query.startDate)
   const endDate = getEndDate(request.query.endDate, startDate)
 
+  context.log('Getting test results for', userId, 'between dates', startDate, '-', endDate)
+
   const container = await getContainer('UserTestResults')
   const { resources } = await container.items
     .query({
@@ -56,6 +58,8 @@ const httpTrigger: AzureFunction = async function (
       ],
     })
     .fetchAll()
+
+  context.log('Found', resources.length, 'results')
 
   return {
     httpResponse: {
