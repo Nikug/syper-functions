@@ -39,7 +39,7 @@ const httpTrigger: AzureFunction = async function (
   const { resources } = await container.items
     .query({
       query:
-        'select * from c where c.userId = @userId and c.date >= @endDate and c.date < @startDate',
+        'select * from c where c.userId = @userId and c.date < @endDate and c.date >= @startDate order by c.date asc',
       parameters: [
         {
           name: '@userId',
